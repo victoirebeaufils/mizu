@@ -1,54 +1,69 @@
+
+import MapView from 'react-native-maps';
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import Card from '../components/Card'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {View,
+  StyleSheet, Button
+} from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  button: {
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    top: 10,
+    left: 10,
+    zIndex: 10
+  },
+  map: {
+    position: 'absolute',
+    flex:1,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+});
 
 class HomeScreen extends React.Component {
-    
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={styles.h1}>New screen session</Text>
-        <Card style={styles.card}><Text>Californian optometrist Jeffrey
-Anshel designed the 20-20-20 rule 
-as an easy reminder to take breaks
-and prevent eye strain.
-</Text>
-</Card >
-<Card style={styles.card}>
-<Text >When following the rule, a person 
-takes a 20-second break from
-looking at a screen every 20 minutes.
-During the break, the person focuses
-on an object 20 feet away, which
-relaxes the eye muscles.</Text>
-</Card>
-<TouchableOpacity style ={styles.button}>
-        <Button 
-          title="Start"
-          onPress={() => this.props.navigation.navigate('Timer')} color='#9983EF'/>
-     </TouchableOpacity>
+      <View style={{flex:1}}>
+      <MapView
+        style={ styles.map }
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
+      <View
+        style={{
+            position: 'absolute',//use absolute position to show button on top of the map
+            top: '50%', //for center align
+            alignSelf: 'flex-end' //for align to right
+        }}
+    >
+        <Button title="Button"/>
+    </View>
       </View>
     );
   }
+
 }
-
-const styles = StyleSheet.create({
-    h1:{
-      fontSize:30,
-      fontWeight: 'bold',
-      marginVertical:20
-    },
-card:{
-    margin:10,
-    marginHorizontal:30,
-    borderRadius:10
-},
-button:{
-    marginVertical: 20
-  }
-
-})
-
 
 export default HomeScreen;
