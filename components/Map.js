@@ -7,6 +7,12 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
   export default class Map extends React.Component {
   
     render() {
+
+      async function getMarkers() {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        const markers = await response.json();
+        setMarkers(markers);
+      }
       return (
         <View>
           <MapView

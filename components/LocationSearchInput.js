@@ -1,79 +1,66 @@
 import React from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
  
-class LocationSearchInput extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-        address: '',
-        lat: 0,
-        lng: 0 };
-       
+const LocationSearchInput = () =>{
+  return(
+    <GooglePlacesAutocomplete
+    placeholder='Search'
+    minLength={2} // minimum length of text to search
+    autoFocus={false}
+    returnKeyType={'search'} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+    keyboardAppearance={'light'} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+    listViewDisplayed='auto'    // true/false/undefined
+    fetchDetails={true}
+    renderDescription={row => row.description} // custom description render
+    onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+      console.log(data, details);
+    }}
+
+    getDefaultValue={() => ''}
+
+    query={{
+      // available options: https://developers.google.com/places/web-service/autocomplete
+      key: 'YOUR API KEY',
+      language: 'en', // language of the results
+      types: '(cities)' // default: 'geocode'
+    }}
+
+    styles={{
+      textInputContainer: {
+        width: '100%'
+      },
+      description: {
+        fontWeight: 'bold'
+      },
+      predefinedPlacesDescription: {
+        color: '#1faadb'
       }
+    }}
+
+    currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+    currentLocationLabel="Current location"
+    nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+    GoogleReverseGeocodingQuery={{
+      // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+    }}
+    GooglePlacesSearchQuery={{
+      // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+      rankby: 'distance',
+      type: 'cafe'
+    }}
     
-    
-      handleChange = address => {
-        this.setState({ address });
-      console.log("this is changing")
-      
-      };
-     
-      handleSelect = address => {
-        geocodeByAddress(address)
-          .then(results => getLatLng(results[0]))
-          .then(results =>  this.setState({
-            lat: results.lat,
-            lng: results.lng,
-        }))
-          .catch(error => console.error('Error', error));
-        //  this.props.onChange(this.state.lat, this.state.lng)
-      };
-     
-      render() {
-        return (
-          <PlacesAutocomplete
-            value={this.state.address}
-            onChange={this.handleChange}
-            onSelect={this.handleSelect}
-          >
-            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-              <div>
-                <input
-                  {...getInputProps({
-                    placeholder: 'Search Places ...',
-                    className: 'location-search-input form-control',
-                  })}
-                />
-                <div className="autocomplete-dropdown-container">
-                  {loading && <div>Loading...</div>}
-                  {suggestions.map(suggestion => {
-                    const className = suggestion.active
-                      ? 'suggestion-item--active'
-                      : 'suggestion-item';
-                    // inline style for demonstration purpose
-                    const style = suggestion.active
-                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                      : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                    return (
-                      <div
-                        {...getSuggestionItemProps(suggestion, {
-                          className,
-                          style,
-                        })}
-                      >
-                        <span className='suggestion'> {suggestion.description}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </PlacesAutocomplete>
-        );
-      }
-    }
-    
+    GooglePlacesDetailsQuery={{
+      // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+      fields: 'formatted_address',
+    }}
+
+    filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+    predefinedPlaces={[homePlace, workPlace]}
+
+    debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
+    renderLeftButton={()  => <Image source={require('path/custom/left-icon')} />}
+    renderRightButton={() => <Text>Custom text after the input</Text>}
+  />
+  )
+}
     export default LocationSearchInput;

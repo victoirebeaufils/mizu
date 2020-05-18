@@ -19,9 +19,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 20,
     height: 20,
-    top: 10,
-    left: 10,
-    zIndex: 10
+    zIndex: 10,
+    display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   },
   map: {
     position: 'absolute',
@@ -50,7 +51,9 @@ class HomeScreen extends React.Component {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
-      />
+      >
+        
+      </MapView>
       <View
         style={{
             position: 'absolute',//use absolute position to show button on top of the map
@@ -58,7 +61,7 @@ class HomeScreen extends React.Component {
             alignSelf: 'flex-end' //for align to right
         }}
     >
-        <Button title="Button"/>
+        <Button title="next " onPress={()=> props.navigation.navigate('StartScreen')}/>
     </View>
       </View>
     );
