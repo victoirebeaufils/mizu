@@ -7,8 +7,8 @@ import LoginScreen from './screens/LoginScreen'
 import {AppRegistry} from 'react-native'
 import StartScreen from './screens/StartScreen';
 import RetrievingDataScreen from './screens/RetrievingDataScreen';
-import ConfirmLocationScreen from './screens/ConfirmLocationScreen'
-import NewLocationScreen from './screens/NewLocationScreen'
+import SensorSearchScreen from './screens/SensorSearchScreen'
+import SensorFoundScreen from './screens/SensorFoundScreen'
 AppRegistry.registerComponent('RNNavigators', () => Drawer)
 const AppNavigator = createStackNavigator({
   Login: { screen: LoginScreen , navigationOptions : {
@@ -27,12 +27,12 @@ const AppNavigator = createStackNavigator({
   RetrievingData:{screen: RetrievingDataScreen, navigationOptions:{
     title: 'Retrieving data'
   }},
-  ConfirmLocation: {screen: ConfirmLocationScreen, navigationOptions:{
-    title: 'Confirm location'
+  SensorSearch:{screen: SensorSearchScreen, navigationOptions:{
+    title: 'Searching for sensor'
   }},
-  NewLocation: {screen: NewLocationScreen, navigationOptions:{
-    title:"New location added"
-  }}
+  SensorFound:{screen: SensorFoundScreen, navigationOptions:{
+    title: 'Sensor found!'
+  }},
 },
 });
 const App = createAppContainer(AppNavigator);

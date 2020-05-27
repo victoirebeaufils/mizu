@@ -41,6 +41,11 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+    const onSubmit = () =>{
+        
+     
+      props.navigation.navigate('SensorSearch')
+  }
     return (
       <View style={{flex:1}}>
       <MapView
@@ -61,7 +66,7 @@ class HomeScreen extends React.Component {
             alignSelf: 'flex-end' //for align to right
         }}
     >
-        <Button title="next " onPress={()=> props.navigation.navigate('StartScreen')}/>
+        <Button title="next " onPress={onSubmit}/>
     </View>
       </View>
     );

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const NewLocationScreen = () => {
+export default class TestScreen extends React.Component {
 
+    render(){
     return(
        <React.Fragment></React.Fragment> 
     )
-
+    }
     
 }
-export default NewLocationScreen;
